@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIVLE 스쿨 Chatbot 선택</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            margin-top:0px;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        main {
+            padding: 20px;
+        }
+        
+        .chatbot-options {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .chatbot-option {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            width: 300px;
+            text-decoration: none;
+            color: #333;
+        }
+        
+        .chatbot-option:hover {
+            background-color: #f0f0f0;
+        }
+        
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        a{
+            text-decoration: none;
+            color:white;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .custom-button {
+            padding: 10px 20px;
+            background-color: #3498db; /* 진한 파랑 */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s ease; /* 호버 효과를 부드럽게 만듦 */
+        }
+        
+        .custom-button:hover {
+            background-color: #2980b9; /* 약간 어두운 파랑 */
+        }
+        /* 로그아웃 폼의 버튼 스타일 */
+        form[action="#"] button[type="submit"] {
+            background-color: transparent; /* 배경을 투명하게 만듦 */
+            border: none; /* 테두리를 제거함 */
+            color: inherit; /* 부모 요소의 글자색을 상속받음 */
+            cursor: pointer; /* 마우스 커서를 포인터로 변경함 */
+            padding: 0; /* 내부 간격을 제거함 */
+            font: inherit; /* 폰트를 상속받음 */
+            text-decoration: none; /* 텍스트에 밑줄을 추가함 */
+        }
+
+        
+        .slider-container {
+            position: relative;
+            width: 100%;
+            max-width: 1500px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .slide_img { 
+            width: 100%; 
+            opacity: 0; 
+            transition: opacity 1s ease-in-out; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+        } 
+            
+        .active-slide { opacity: 1; position: relative; }
+
+        .marquee {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 3px 0;
+            overflow: hidden;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        
+        .marquee p {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 40s linear infinite;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        @keyframes marquee {
+            0% {
+                transform: translateX(50%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    
+    <header>
+        <div class="header-content">
+            <h1><a href="/">AIVLE Chatbot<a></h1>
+            <nav>
+                <ul>
+                    {% if user.is_authenticated %}
+                        <li><a href="/" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">로그아웃</a></li>
+                        <form id="logout-form" action="#" method="post" style="display: none;">
+                        {% csrf_token %}
+                        </form>
+                    {% else %}
+                        <li><a href="#">로그인</a></li>
+                        <li><a href="#">회원가입</a></li>
+                    {% endif %}
+                    <li><a href="#">History</a></li>
+                    <li><a href="/admin">관리자 메뉴</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="chatbot-options">
+            <a href="#" class="chatbot-option">
+                <h2>단발성 Chatbot</h2>
+                <p>Chatbot을 통해 간단한 질문에 답변을 받으세요.</p>
+            </a>
+            
+            <a href="#" class="chatbot-option">
+                <h2>대화형 Chatbot</h2>
+                <p>Chatbot과 대화하며 질문에 대한 상세한 답변을 받으세요.</p>
+            </a>
+
+            <a href="#" class="chatbot-option">
+                <h2>커스텀 Chatbot</h2>
+                <p>자신에 적합한 Chatbot을 만들어 질문에 대한 상세한 답변을 받으세요.</p>
+            </a>
+            
+        </section>
+
+        
+        <section class="slider-container">
+
+            <a href="https://aivle.kt.co.kr/home/main/indexMain">
+                <img class="slide_img active-slide" src="https://aivle.kt.co.kr/app/file/view2/67670" alt="Image 1">
+            </a>
+            
+            <a href="https://aivle.kt.co.kr/home/main/indexMain">
+                <img class="slide_img" src="https://aivle.kt.co.kr/app/file/view2/65681" alt="Image 2">
+            </a>
+
+            <a href="https://aivle.kt.co.kr/home/main/applyMain?mcd=MC00000051">
+                <img class="slide_img" src="https://i.ytimg.com/vi/066tIUJLQio/hq720.jpg?sqp=-oaymwEXCK4FEIIDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDh7UvCC-PHOhaDZzgnOvt81rrJyQ" alt="Image 2">
+            </a>
+        </section>
+
+        
+    </main>
+    
+    <footer>
+        <p>© 2024 AIVLE 스쿨. All rights reserved.</p>
+    </footer>
+    
+    {% csrf_token %}
+    <div class="marquee">
+        <p>💫에이블스쿨 6기 지원 6.10(월) ~ 7.1(월) 17시 까지 !  지원은 공짜 😁 지원방법 홈페이지 APPLY에서 지원서 작성 🖋️
+            💫에이블스쿨 6기 지원 6.10(월) ~ 7.1(월) 17시 까지 ! 지원은 공짜 😁 지원방법 홈페이지 APPLY에서 지원서 작성 🖋️
+            💫에이블스쿨 6기 지원 6.10(월) ~ 7.1(월) 17시 까지 ! 지원은 공짜 😁 지원방법 홈페이지 APPLY에서 지원서 작성 🖋️
+            💫  에이블스쿨 6기 지원 6.10(월) ~ 7.1(월) 17시 까지 ! 지원은 공짜 😁 지원방법 홈페이지 APPLY에서 지원서 작성 🖋️ 
+        </p>
+    </div>
+    <script>
+        const slides = document.querySelectorAll('.slide_img');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active-slide');
+                if (i === index) {
+                    slide.classList.add('active-slide');
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        setInterval(nextSlide, 3000); // 3초마다 슬라이드 변경
+    </script>
+</body>
+</html>
