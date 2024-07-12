@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <title>데이터 추가하기</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIVLE 스쿨 Chatbot 선택</title>
+    <link rel="stylesheet" href="{% static 'chatgptadmin/style.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        main {
+            padding: 20px;
+        }
+        
+        .chatbot-options {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .chatbot-option {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            width: 300px;
+            text-decoration: none;
+            color: #333;
+        }
+        
+        .chatbot-option:hover {
+            background-color: #f0f0f0;
+        }
+        
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        a{
+            text-decoration: none;
+            color:white;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .custom-button {
+            padding: 10px 20px;
+            background-color: #3498db; /* 진한 파랑 */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s ease; /* 호버 효과를 부드럽게 만듦 */
+        }
+        
+        .custom-button:hover {
+            background-color: #2980b9; /* 약간 어두운 파랑 */
+        }
+        h1 a{
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1><a href="/">AIVLE Chatbot<a></h1>
+            <nav>
+                <ul>
+                    {% comment %} {% if user.is_authenticated %}
+                        <li><a href="/" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">로그아웃</a></li>
+                        <form id="logout-form" action="{% url 'accounts:logout' %}" method="post" style="display: none;">
+                        {% csrf_token %}
+                        </form>
+                    {% else %}
+                        <li><a href="{% url 'accounts:login' %}">로그인</a></li>
+                        <li><a href="{% url 'accounts:register' %}">회원가입</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'interactive:history_li'%}">History</a></li>
+                    <li><a href="/admin">관리자 메뉴</a></li> {% endcomment %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h2>데이터 추가하기</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="file">
+                <button type="submit">업로드</button>
+            </form>
+        </div>
+        
+    </main>
+    <footer>
+        <p>© 2024 AIVLE 스쿨. All rights reserved.</p>
+    </footer>
+</body>
+</html>
