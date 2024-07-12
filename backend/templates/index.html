@@ -188,17 +188,17 @@
     </header>
     <main>
         <section class="chatbot-options">
-            <a href="#" class="chatbot-option">
+            <a href="{% url 'chatbot:simple' %}" class="chatbot-option">
                 <h2>단발성 Chatbot</h2>
                 <p>Chatbot을 통해 간단한 질문에 답변을 받으세요.</p>
             </a>
             
-            <a href="#" class="chatbot-option">
+            <a href="{% url 'chatbot:interactive' %}" class="chatbot-option">
                 <h2>대화형 Chatbot</h2>
                 <p>Chatbot과 대화하며 질문에 대한 상세한 답변을 받으세요.</p>
             </a>
 
-            <a href="#" class="chatbot-option">
+            <a href="{% url 'chatbot:custom' %}" class="chatbot-option">
                 <h2>커스텀 Chatbot</h2>
                 <p>자신에 적합한 Chatbot을 만들어 질문에 대한 상세한 답변을 받으세요.</p>
             </a>
