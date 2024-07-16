@@ -1,3 +1,5 @@
+## AIVLE FAQ 게시판 Crwaling 모듈 파일
+
 import re
 import requests
 import pandas as pd
