@@ -1,3 +1,5 @@
+## langchain 라이브러리 기반 Chroma DB 구성 파일
+
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.schema import Document
